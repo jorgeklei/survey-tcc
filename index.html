@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pesquisa — Barreiras de Acesso na Saúde Suplementar</title>
-<style>
-/* System fonts — sem dependências externas */
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #0d2b45; --blue: #1a5c9e; --sky: #3b9dd2;
@@ -16,27 +14,40 @@
     --radius: 12px; --shadow: 0 4px 24px rgba(13,43,69,0.10);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: #f0f6fc; color: var(--text); min-height: 100vh; }
-  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 80% 60% at 10% 0%, rgba(59,157,210,0.13) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 100%, rgba(0,194,154,0.10) 0%, transparent 60%); }
+  body { font-family: 'Sora', sans-serif; background: #f0f6fc; color: var(--text); min-height: 100vh; }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 10% 0%, rgba(59,157,210,0.13) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 90% 100%, rgba(0,194,154,0.10) 0%, transparent 60%);
+  }
   .page-wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* HERO */
   .hero { background: linear-gradient(135deg, var(--navy) 0%, #1a4a7a 100%); border-radius: 20px; padding: 52px 48px 44px; margin-bottom: 32px; box-shadow: 0 8px 40px rgba(13,43,69,0.25); position: relative; overflow: hidden; }
+  .hero::after { content: '⊕'; position: absolute; right: -20px; top: -30px; font-size: 200px; color: rgba(255,255,255,0.03); line-height: 1; }
   .hero-tag { display: inline-block; background: rgba(0,194,154,0.2); color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 40px; border: 1px solid rgba(0,194,154,0.35); margin-bottom: 20px; }
-  .hero h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(24px, 4vw, 36px); color: var(--white); line-height: 1.2; margin-bottom: 10px; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(24px, 4vw, 36px); color: var(--white); line-height: 1.2; margin-bottom: 10px; }
   .hero h1 em { color: #7dd3fc; font-style: italic; }
   .hero p { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.7; max-width: 560px; margin-bottom: 28px; }
   .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
   .hero-meta span { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,0.55); font-size: 12.5px; }
   .hero-meta span b { color: rgba(255,255,255,0.85); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* PROGRESS */
   .progress-bar-wrap { background: var(--white); border-radius: 16px; padding: 18px 28px; margin-bottom: 28px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 20px; }
   .progress-label { font-size: 12px; color: var(--gray); white-space: nowrap; min-width: 100px; }
   .progress-track { flex: 1; height: 6px; background: var(--light); border-radius: 99px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sky), var(--accent)); border-radius: 99px; width: 0%; transition: width 0.5s ease; }
   .progress-pct { font-size: 13px; font-weight: 600; color: var(--blue); min-width: 36px; text-align: right; }
+
+  /* NOTICE */
   .notice { background: linear-gradient(135deg, #e8f4fd, #f0faf7); border: 1px solid #b8ddf5; border-left: 4px solid var(--sky); border-radius: var(--radius); padding: 18px 24px; margin-bottom: 28px; font-size: 13.5px; line-height: 1.75; color: #2c4a62; }
   .notice strong { color: var(--navy); }
   .notice ul { padding-left: 20px; margin-top: 8px; }
   .notice ul li { margin-bottom: 4px; }
+
+  /* BLOCK */
   .block { background: var(--white); border-radius: 18px; box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; display: none; animation: fadeUp 0.4s ease; }
   .block.active { display: block; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -45,12 +56,16 @@
   .block-title { color: var(--white); font-size: 16px; font-weight: 600; }
   .block-subtitle { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 2px; }
   .block-body { padding: 28px 32px 24px; }
+
+  /* QUESTION */
   .question { margin-bottom: 28px; }
   .question:last-child { margin-bottom: 0; }
   .q-label { font-size: 14.5px; font-weight: 600; color: var(--navy); line-height: 1.5; margin-bottom: 12px; display: flex; gap: 10px; }
   .q-num { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px; background: var(--blue); color: var(--white); border-radius: 6px; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
   .req { color: #e53e3e; margin-left: 3px; }
   .q-note { font-size: 12px; color: var(--gray); font-style: italic; margin-bottom: 10px; padding: 7px 12px; background: var(--light); border-radius: 8px; border-left: 3px solid var(--sky); }
+
+  /* OPTIONS */
   .options { display: flex; flex-direction: column; gap: 7px; }
   .opt { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.18s ease; background: #fafcff; font-size: 14px; color: var(--text); user-select: none; }
   .opt:hover { border-color: var(--sky); background: #f0f8ff; }
@@ -61,10 +76,14 @@
   .opt.selected .opt-icon { border-color: var(--blue); background: var(--blue); }
   .opt.selected .opt-icon::after { content: ''; display: block; width: 8px; height: 8px; border-radius: 50%; background: white; }
   .opt.checkbox-opt.selected .opt-icon::after { width: 5px; height: 9px; border-radius: 0; background: transparent; border-right: 2px solid white; border-bottom: 2px solid white; transform: rotate(45deg) translate(-1px, -1px); }
-  textarea, input[type="text"] { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 14px; color: var(--text); background: #fafcff; outline: none; transition: border-color 0.18s; resize: vertical; }
+
+  /* TEXTAREA / INPUT */
+  textarea, input[type="text"] { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; font-family: 'Sora', sans-serif; font-size: 14px; color: var(--text); background: #fafcff; outline: none; transition: border-color 0.18s; resize: vertical; }
   textarea:focus, input[type="text"]:focus { border-color: var(--sky); background: var(--white); }
   textarea { min-height: 90px; }
-  .likert-wrap { overflow-x: auto; margin-top: 4px; }
+
+  /* LIKERT TABLE */
+  .likert-wrap { overflow-x: auto; margin-top: 4px; -webkit-overflow-scrolling: touch; }
   .likert { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   .likert thead th { background: var(--navy); color: var(--white); padding: 9px 8px; font-weight: 600; text-align: center; font-size: 11.5px; }
   .likert thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
@@ -76,54 +95,787 @@
   .likert tbody td:not(:first-child) { text-align: center; }
   .likert tbody td:first-child { color: var(--navy); font-weight: 500; line-height: 1.4; padding-left: 12px; }
   .likert tbody td.cell-na { background: #efefef !important; }
+  .likert tbody tr:nth-child(even) td.cell-na { background: #e5e5e5 !important; }
   .likert-radio { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 50%; display: inline-block; cursor: pointer; position: relative; background: var(--white); transition: all 0.15s; vertical-align: middle; }
   .likert-radio.checked { border-color: var(--blue); background: var(--blue); }
   .likert-radio.checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 7px; height: 7px; border-radius: 50%; background: white; }
   .likert-radio.na-radio { border-color: #aaa; }
   .likert-radio.na-radio.checked { border-color: #666; background: #666; }
+
+  /* NAV */
   .nav-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s ease; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 10px; font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s ease; }
   .btn-ghost { background: transparent; color: var(--gray); border: 1.5px solid var(--border); }
   .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
   .btn-primary { background: linear-gradient(135deg, var(--blue), var(--sky)); color: white; box-shadow: 0 4px 14px rgba(26,92,158,0.3); }
-  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,92,158,0.4); }
   .btn-submit { background: linear-gradient(135deg, var(--accent), #00a882); color: white; box-shadow: 0 4px 14px rgba(0,194,154,0.3); }
   .btn-submit:hover { transform: translateY(-1px); }
-  .success-screen { display: none; background: var(--white); border-radius: 20px; padding: 64px 48px; text-align: center; box-shadow: var(--shadow); }
+
+  /* SUCCESS */
+  .success-screen { display: none; background: var(--white); border-radius: 20px; padding: 64px 48px; text-align: center; box-shadow: var(--shadow); animation: fadeUp 0.5s ease; }
   .success-screen.active { display: block; }
   .success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent), #00a882); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; }
-  .success-screen h2 { font-family: Georgia, serif; font-size: 32px; color: var(--navy); margin-bottom: 12px; }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--navy); margin-bottom: 12px; }
   .success-screen p { color: var(--gray); line-height: 1.7; max-width: 440px; margin: 0 auto 8px; }
+
+  /* LOADING */
   .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(13,43,69,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; flex-direction: column; gap: 16px; color: white; font-size: 15px; }
   .loading-overlay.active { display: flex; }
   .spinner { width: 44px; height: 44px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* SKIP / ERROR */
+  .skip-notice { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fde68a; border-left: 4px solid var(--accent2); border-radius: 10px; padding: 12px 18px; font-size: 13px; color: #78350f; margin-bottom: 20px; display: none; }
+  .skip-notice.active { display: block; }
   .field-error { color: #e53e3e; font-size: 12px; margin-top: 6px; display: none; }
   .field-error.active { display: block; }
-  @media (max-width: 600px) { .hero { padding: 32px 20px 28px; } .block-body { padding: 20px 16px 18px; } .nav-row { flex-direction: column; } .btn { width: 100%; justify-content: center; } }
+
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .block-body { padding: 20px 16px 18px; }
+    .nav-row { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+  }
 </style>
 </head>
 <body>
-<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><span>Enviando suas respostas…</span></div>
-<div class="page-wrap">
-  <div class="hero"><div class="hero-tag">Pesquisa Acadêmica · TCC</div><h1>Barreiras de Acesso na <em>Saúde Suplementar</em></h1><p>Esta pesquisa faz parte de um Trabalho de Conclusão de Curso sobre as dificuldades enfrentadas por beneficiários de planos de saúde no Brasil. Sua participação é voluntária e anônima.</p><div class="hero-meta"><span><div class="dot"></div><b>~15 minutos</b> para responder</span><span><div class="dot"></div>Aluno: <b>Jorge Klei de Souza Joaquim</b></span><span><div class="dot"></div>Orientadora: <b>Ingrid Martins</b></span></div></div>
-  <div class="progress-bar-wrap"><span class="progress-label" id="progressLabel">Bloco 1 de 9</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
-  <div class="notice" id="noticeBox"><strong>📋 Orientações:</strong><ul><li>Marque apenas uma resposta por pergunta, salvo quando indicado "marque todas que se aplicam".</li><li>Campos com <strong>*</strong> são obrigatórios.</li><li>Não há respostas certas ou erradas — queremos sua experiência real.</li></ul></div>
-  <div class="block active" id="block-1"><div class="block-header"><div class="block-num">1</div><div><div class="block-title">Perfil do Respondente</div><div class="block-subtitle">Dados demográficos e contexto de uso de saúde</div></div></div><div class="block-body"><div class="question"><div class="q-label"><span class="q-num">1</span><span>Qual é a sua faixa etária?<span class="req">*</span></span></div><div class="options" data-name="q1" data-type="radio"><label class="opt"><input type="radio" name="q1" value="Até 25 anos"><div class="opt-icon"></div>Até 25 anos</label><label class="opt"><input type="radio" name="q1" value="26 a 35 anos"><div class="opt-icon"></div>26 a 35 anos</label><label class="opt"><input type="radio" name="q1" value="36 a 45 anos"><div class="opt-icon"></div>36 a 45 anos</label><label class="opt"><input type="radio" name="q1" value="46 a 55 anos"><div class="opt-icon"></div>46 a 55 anos</label><label class="opt"><input type="radio" name="q1" value="56 a 65 anos"><div class="opt-icon"></div>56 a 65 anos</label><label class="opt"><input type="radio" name="q1" value="Acima de 65 anos"><div class="opt-icon"></div>Acima de 65 anos</label></div><div class="field-error" id="err-q1">Por favor, selecione uma opção.</div></div><div class="question"><div class="q-label"><span class="q-num">2</span><span>Qual é o seu gênero?<span class="req">*</span></span></div><div class="options" data-name="q2" data-type="radio"><label class="opt"><input type="radio" name="q2" value="Feminino"><div class="opt-icon"></div>Feminino</label><label class="opt"><input type="radio" name="q2" value="Masculino"><div class="opt-icon"></div>Masculino</label><label class="opt"><input type="radio" name="q2" value="Não-binário / outro"><div class="opt-icon"></div>Não-binário / outro</label><label class="opt"><input type="radio" name="q2" value="Prefiro não informar"><div class="opt-icon"></div>Prefiro não informar</label></div><div class="field-error" id="err-q2">Por favor, selecione uma opção.</div></div><div class="question"><div class="q-label"><span class="q-num">3</span><span>Qual é o seu nível de escolaridade?<span class="req">*</span></span></div><div class="options" data-name="q3" data-type="radio"><label class="opt"><input type="radio" name="q3" value="Ensino Fundamental"><div class="opt-icon"></div>Ensino Fundamental</label><label class="opt"><input type="radio" name="q3" value="Ensino Médio"><div class="opt-icon"></div>Ensino Médio</label><label class="opt"><input type="radio" name="q3" value="Ensino Superior"><div class="opt-icon"></div>Ensino Superior</label><label class="opt"><input type="radio" name="q3" value="Pós-graduação"><div class="opt-icon"></div>Pós-graduação</label></div><div class="field-error" id="err-q3">Por favor, selecione uma opção.</div></div><div class="question"><div class="q-label"><span class="q-num">4</span><span>Em qual estado brasileiro você reside?<span class="req">*</span></span></div><input type="text" id="q4" placeholder="Ex: São Paulo" maxlength="50"><div class="field-error" id="err-q4">Por favor, informe seu estado.</div></div><div class="question"><div class="q-label"><span class="q-num">5</span><span>Qual é a sua faixa de renda familiar mensal?<span class="req">*</span></span></div><div class="options" data-name="q5" data-type="radio"><label class="opt"><input type="radio" name="q5" value="Até R$ 2.000"><div class="opt-icon"></div>Até R$ 2.000</label><label class="opt"><input type="radio" name="q5" value="R$ 2.001 a R$ 4.000"><div class="opt-icon"></div>De R$ 2.001 a R$ 4.000</label><label class="opt"><input type="radio" name="q5" value="R$ 4.001 a R$ 8.000"><div class="opt-icon"></div>De R$ 4.001 a R$ 8.000</label><label class="opt"><input type="radio" name="q5" value="R$ 8.001 a R$ 15.000"><div class="opt-icon"></div>De R$ 8.001 a R$ 15.000</label><label class="opt"><input type="radio" name="q5" value="Acima de R$ 15.000"><div class="opt-icon"></div>Acima de R$ 15.000</label><label class="opt"><input type="radio" name="q5" value="Prefiro não informar"><div class="opt-icon"></div>Prefiro não informar</label></div><div class="field-error" id="err-q5">Por favor, selecione uma opção.</div></div><div class="nav-row"><span></span><button class="btn btn-primary" onclick="nextBlock(1)">Próximo →</button></div></div></div>
-  <div class="success-screen" id="successScreen"><div class="success-icon">🎉</div><h2>Obrigado pela participação!</h2><p>Suas respostas foram registradas com sucesso.</p><p style="margin-top:8px;font-size:13px;color:#aaa;">Em caso de dúvidas: jorge.klei1@gmail.com</p></div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <span>Enviando suas respostas…</span>
 </div>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Pesquisa Acadêmica · TCC</div>
+    <h1>Barreiras de Acesso na <em>Saúde Suplementar</em></h1>
+    <p>Esta pesquisa faz parte de um Trabalho de Conclusão de Curso sobre as dificuldades enfrentadas por beneficiários de planos de saúde no Brasil. Sua participação é voluntária e anônima.</p>
+    <div class="hero-meta">
+      <span><div class="dot"></div> <b>~15 minutos</b> para responder</span>
+      <span><div class="dot"></div> Aluno: <b>Jorge Klei de Souza Joaquim</b></span>
+      <span><div class="dot"></div> Orientadora: <b>Ingrid Martins</b></span>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap">
+    <span class="progress-label" id="progressLabel">Bloco 1 de 9</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+
+  <!-- ORIENTAÇÕES -->
+  <div class="notice" id="noticeBox">
+    <strong>📋 Orientações:</strong>
+    <ul>
+      <li>Marque apenas uma resposta por pergunta, salvo quando indicado "marque todas que se aplicam".</li>
+      <li>Campos com <strong>*</strong> são obrigatórios.</li>
+      <li>Não há respostas certas ou erradas — queremos sua experiência real.</li>
+    </ul>
+  </div>
+
+  <!-- ═══ BLOCO 1 — PERFIL ═══ -->
+  <div class="block active" id="block-1">
+    <div class="block-header"><div class="block-num">1</div><div><div class="block-title">Perfil do Respondente</div><div class="block-subtitle">Dados demográficos e contexto de uso de saúde</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">1</span><span>Qual é a sua faixa etária?<span class="req">*</span></span></div>
+        <div class="options" data-name="q1" data-type="radio">
+          <label class="opt"><input type="radio" name="q1" value="Até 25 anos"><div class="opt-icon"></div>Até 25 anos</label>
+          <label class="opt"><input type="radio" name="q1" value="26 a 35 anos"><div class="opt-icon"></div>26 a 35 anos</label>
+          <label class="opt"><input type="radio" name="q1" value="36 a 45 anos"><div class="opt-icon"></div>36 a 45 anos</label>
+          <label class="opt"><input type="radio" name="q1" value="46 a 55 anos"><div class="opt-icon"></div>46 a 55 anos</label>
+          <label class="opt"><input type="radio" name="q1" value="56 a 65 anos"><div class="opt-icon"></div>56 a 65 anos</label>
+          <label class="opt"><input type="radio" name="q1" value="Acima de 65 anos"><div class="opt-icon"></div>Acima de 65 anos</label>
+        </div>
+        <div class="field-error" id="err-q1">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">2</span><span>Qual é o seu gênero?<span class="req">*</span></span></div>
+        <div class="options" data-name="q2" data-type="radio">
+          <label class="opt"><input type="radio" name="q2" value="Feminino"><div class="opt-icon"></div>Feminino</label>
+          <label class="opt"><input type="radio" name="q2" value="Masculino"><div class="opt-icon"></div>Masculino</label>
+          <label class="opt"><input type="radio" name="q2" value="Não-binário / outro"><div class="opt-icon"></div>Não-binário / outro</label>
+          <label class="opt"><input type="radio" name="q2" value="Prefiro não informar"><div class="opt-icon"></div>Prefiro não informar</label>
+        </div>
+        <div class="field-error" id="err-q2">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">3</span><span>Qual é o seu nível de escolaridade?<span class="req">*</span></span></div>
+        <div class="options" data-name="q3" data-type="radio">
+          <label class="opt"><input type="radio" name="q3" value="Ensino Fundamental"><div class="opt-icon"></div>Ensino Fundamental (incompleto ou completo)</label>
+          <label class="opt"><input type="radio" name="q3" value="Ensino Médio"><div class="opt-icon"></div>Ensino Médio (incompleto ou completo)</label>
+          <label class="opt"><input type="radio" name="q3" value="Ensino Superior"><div class="opt-icon"></div>Ensino Superior (incompleto ou completo)</label>
+          <label class="opt"><input type="radio" name="q3" value="Pós-graduação"><div class="opt-icon"></div>Pós-graduação (especialização, mestrado, doutorado)</label>
+        </div>
+        <div class="field-error" id="err-q3">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">4</span><span>Em qual estado brasileiro você reside?<span class="req">*</span></span></div>
+        <input type="text" id="q4" placeholder="Ex: São Paulo" maxlength="50">
+        <div class="field-error" id="err-q4">Por favor, informe seu estado.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">5</span><span>Qual é a sua faixa de renda familiar mensal?<span class="req">*</span></span></div>
+        <div class="options" data-name="q5" data-type="radio">
+          <label class="opt"><input type="radio" name="q5" value="Até R$ 2.000"><div class="opt-icon"></div>Até R$ 2.000</label>
+          <label class="opt"><input type="radio" name="q5" value="R$ 2.001 a R$ 4.000"><div class="opt-icon"></div>De R$ 2.001 a R$ 4.000</label>
+          <label class="opt"><input type="radio" name="q5" value="R$ 4.001 a R$ 8.000"><div class="opt-icon"></div>De R$ 4.001 a R$ 8.000</label>
+          <label class="opt"><input type="radio" name="q5" value="R$ 8.001 a R$ 15.000"><div class="opt-icon"></div>De R$ 8.001 a R$ 15.000</label>
+          <label class="opt"><input type="radio" name="q5" value="Acima de R$ 15.000"><div class="opt-icon"></div>Acima de R$ 15.000</label>
+          <label class="opt"><input type="radio" name="q5" value="Prefiro não informar"><div class="opt-icon"></div>Prefiro não informar</label>
+        </div>
+        <div class="field-error" id="err-q5">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="nav-row"><span></span><button class="btn btn-primary" onclick="nextBlock(1)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 2 — COBERTURA ═══ -->
+  <div class="block" id="block-2">
+    <div class="block-header"><div class="block-num">2</div><div><div class="block-title">Tipo de Cobertura de Saúde</div><div class="block-subtitle">Identificação do tipo de cobertura utilizada</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">6</span><span>Você possui ou utiliza algum plano de saúde privado?<span class="req">*</span></span></div>
+        <div class="options" data-name="q6" data-type="radio">
+          <lael class="opt"><input type="radio" name="q6" value="Sim, possuo plano privado"><div class="opt-icon"></div>Sim, possuo plano de saúde privado</label>
+          <label class="opt"><input type="radio" name="q6" value="Não — utilizo exclusivamente o SUS"><div class="opt-icon"></div>Não possuo — utilizo exclusivamente o SUS</label>
+          <label class="opt"><input type="radio" name="q6" value="Não possuo, uso serviços particulares"><div class="opt-icon"></div>Não possuo, mas utilizo serviços privados pagos diretamente (particular)</label>
+          <label class="opt"><input type="radio" name="q6" value="Possuo plano e também uso o SUS"><div class="opt-icon"></div>Possuo plano, mas também uso o SUS com frequência</label>
+        </div>
+        <div class="field-error" id="err-q6">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">7</span><span>Como você obteve seu plano de saúde?<span class="req">*</span></span></div>
+        <div class="options" data-name="q7" data-type="radio">
+          <label class="opt"><input type="radio" name="q7" value="Plano empresarial (empregador paga)"><div class="opt-icon"></div>Plano empresarial (custeado pelo empregador, total ou parcialmente)</label>
+          <label class="opt"><input type="radio" name="q7" value="Plano empresarial (eu pago)"><div class="opt-icon"></div>Plano empresarial (custeado totalmente por mim)</label>
+          <label class="opt"><input type="radio" name="q7" value="Plano individual ou familiar"><div class="opt-icon"></div>Plano individual ou familiar contratado diretamente por mim</label>
+          <label class="opt"><input type="radio" name="q7" value="Plano de entidade de classe"><div class="opt-icon"></div>Plano de entidade de classe / associação / sindicato</label>
+        </div>
+        <div class="field-error" id="err-q7">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">8</span><span>Qual operadora de saúde você utiliza? (principal)<span class="req">*</span></span></div>
+        <div class="options" data-name="q8" data-type="radio">
+          <label class="opt"><input type="radio" name="q8" value="Amil"><div class="opt-icon"></div>Amil</label>
+          <label class="opt"><input type="radio" name="q8" value="Bradesco Saúde"><div class="opt-icon"></div>Bradesco Saúde</label>
+          <label class="opt"><input type="radio" name="q8" value="Hapvida / NotreDame Intermédica (GNDI)"><div class="opt-icon"></div>Hapvida / NotreDame Intermédica (GNDI)</label>
+          <label class="opt"><input type="radio" name="q8" value="Porto Seguro Saúde"><div class="opt-icon"></div>Porto Seguro Saúde</label>
+          <label class="opt"><input type="radio" name="q8" value="SulAmérica Saúde"><div class="opt-icon"></div>SulAmérica Saúde</label>
+          <label class="opt"><input type="radio" name="q8" value="Unimed"><div class="opt-icon"></div>Unimed (qualquer cooperativa)</label>
+          <label class="opt"><input type="radio" name="q8" value="Prevent Senior"><div class="opt-icon"></div>Prevent Senior</label>
+          <label class="opt"><input type="radio" name="q8" value="Golden Cross"><div class="opt-icon"></div>Golden Cross</label>
+          <label class="opt"><input type="radio" name="q8" value="Omint"><div class="opt-icon"></div>Omint</label>
+          <label class="opt"><input type="radio" name="q8" value="Care Plus"><div class="opt-icon"></div>Care Plus</label>
+          <label class="opt"><input type="radio" name="q8" value="Outra operadora"><div class="opt-icon"></div>Outra operadora</label>
+        </div>
+        <input type="text" id="q8-other" placeholder="Qual operadora?" style="margin-top:8px;display:none;">
+        <div class="field-error" id="err-q8">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">9</span><span>Qual é a sua modalidade de plano?<span class="req">*</span></span></div>
+        <div class="options" data-name="q9" data-type="radio">
+          <label class="opt"><input type="radio" name="q9" value="Plano ambulatorial"><div class="opt-icon"></div>Plano ambulatorial (consultas e exames, sem internação)</label>
+          <label class="opt"><input type="radio" name="q9" value="Plano hospitalar"><div class="opt-icon"></div>Plano hospitalar (internação, sem ambulatório)</label>
+          <label class="opt"><input type="radio" name="q9" value="Plano referência / completo"><div class="opt-icon"></div>Plano referência / completo (ambulatorial + hospitalar + obstetrícia)</label>
+          <label class="opt"><input type="radio" name="q9" value="Não sei"><div class="opt-icon"></div>Não sei / não tenho certeza</label>
+        </div>
+        <div class="field-error" id="err-q9">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">10</span><span>Há quanto tempo você possui este plano?<span class="req">*</span></span></div>
+        <div class="options" data-name="q10" data-type="radio">
+          <label class="opt"><input type="radio" name="q10" value="Menos de 1 ano"><div class="opt-icon"></div>Menos de 1 ano</label>
+          <label class="opt"><input type="radio" name="q10" value="1 a 3 anos"><div class="opt-icon"></div>De 1 a 3 anos</label>
+          <label class="opt"><input type="radio" name="q10" value="3 a 7 anos"><div class="opt-icon"></div>De 3 a 7 anos</label>
+          <label class="opt"><input type="radio" name="q10" value="Mais de 7 anos"><div class="opt-icon"></div>Mais de 7 anos</label>
+        </div>
+        <div class="field-error" id="err-q10">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(2)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(2)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 3 — REDE ═══ -->
+  <div class="block" id="block-3">
+    <div class="block-header"><div class="block-num">3</div><div><div class="block-title">Acesso à Rede de Prestadores</div><div class="block-subtitle">Dificuldades para encontrar médicos, hospitais e clínicas credenciados</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">11</span><span>Com que frequência você precisa buscar um prestador credenciado?<span class="req">*</span></span></div>
+        <div class="options" data-name="q11" data-type="radio">
+          <label class="opt"><input type="radio" name="q11" value="Raramente (menos de 2x/ano)"><div class="opt-icon"></div>Raramente (menos de 2 vezes por ano)</label>
+          <label class="opt"><input type="radio" name="q11" value="Algumas vezes (2 a 4x/ano)"><div class="opt-icon"></div>Algumas vezes (2 a 4 vezes por ano)</label>
+          <label class="opt"><input type="radio" name="q11" value="Com frequência (5 a 10x/ano)"><div class="opt-icon"></div>Com frequência (5 a 10 vezes por ano)</label>
+          <label class="opt"><input type="radio" name="q11" value="Muito frequentemente (+10x/ano)"><div class="opt-icon"></div>Muito frequentemente (mais de 10 vezes por ano)</label>
+        </div>
+        <div class="field-error" id="err-q11">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">12</span><span>Você já teve dificuldade para encontrar um prestador credenciado próximo a você?<span class="req">*</span></span></div>
+        <div class="options" data-name="q12" data-type="radio">
+          <label class="opt"><input type="radio" name="q12" value="Nunca tive dificuldade"><div class="opt-icon"></div>Nunca tive dificuldade</label>
+          <label class="opt"><input type="radio" name="q12" value="Raramente tive dificuldade"><div class="opt-icon"></div>Raramente tive dificuldade</label>
+          <label class="opt"><input type="radio" name="q12" value="Já tive dificuldade algumas vezes"><div class="opt-icon"></div>Já tive dificuldade algumas vezes</label>
+          <label class="opt"><input type="radio" name="q12" value="Tenho dificuldade com frequência"><div class="opt-icon"></div>Tenho dificuldade com frequência</label>
+          <label class="opt"><input type="radio" name="q12" value="Quase sempre tenho dificuldade"><div class="opt-icon"></div>Quase sempre tenho dificuldade</label>
+        </div>
+        <div class="field-error" id="err-q12">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">13</span><span>Já tentou agendar consulta e descobriu que o médico não atendia mais pelo plano?<span class="req">*</span></span></div>
+        <div class="options" data-name="q13" data-type="radio">
+          <label class="opt"><input type="radio" name="q13" value="Sim, isso já aconteceu"><div class="opt-icon"></div>Sim, isso já aconteceu</label>
+          <label class="opt"><input type="radio" name="q13" value="Não, nunca aconteceu"><div class="opt-icon"></div>Não, nunca aconteceu</label>
+          <label class="opt"><input type="radio" name="q13" value="Não me lembro"><div class="opt-icon"></div>Não me lembro / não sei</label>
+        </div>
+        <div class="field-error" id="err-q13">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">14</span><span>Já precisou de um especialista e teve dificuldade em encontrá-lo na rede credenciada?<span class="req">*</span></span></div>
+        <div class="options" data-name="q14" data-type="radio">
+          <label class="opt"><input type="radio" name="q14" value="Sim, e paguei particular"><div class="opt-icon"></div>Sim, e acabei pagando particular por isso</label>
+          <label class="opt"><input type="radio" name="q14" value="Sim, resolvi dentro da rede"><div class="opt-icon"></div>Sim, mas resolvi aguardando ou buscando outra opção na rede</label>
+          <label class="opt"><input type="radio" name="q14" value="Não tive essa dificuldade"><div class="opt-icon"></div>Não, nunca tive essa dificuldade</label>
+          <label class="opt"><input type="radio" name="q14" value="Nunca precisei de especialista"><div class="opt-icon"></div>Nunca precisei de especialista</label>
+        </div>
+        <div class="field-error" id="err-q14">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">15</span><span>Como você costuma buscar prestadores credenciados? (marque todas que se aplicam)</span></div>
+        <div class="options" data-name="q15" data-type="checkbox">
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Aplicativo da operadora"><div class="opt-icon"></div>Aplicativo da operadora</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Site da operadora"><div class="opt-icon"></div>Site da operadora</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Ligação para a central"><div class="opt-icon"></div>Ligação para a central de atendimento</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Indicação de amigos ou família"><div class="opt-icon"></div>Indicação de amigos ou familiares</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Google / internet"><div class="opt-icon"></div>Pesquisa no Google / internet</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q15" value="Diretamente no consultório"><div class="opt-icon"></div>Diretamente no consultório ou hospital</label>
+        </div>
+      </div>
+      <!-- Q16 — NOVA: possui reembolso -->
+      <div class="question">
+        <div class="q-label"><span class="q-num">16</span><span>O seu plano de saúde possui a modalidade de reembolso de despesas médicas?<span class="req">*</span></span></div>
+        <div class="q-note">Reembolso é quando você paga por um serviço de saúde e depois solicita o ressarcimento à operadora.</div>
+        <div class="options" data-name="q16" data-type="radio">
+          <label class="opt"><input type="radio" name="q16" value="Sim, meu plano permite reembolso"><div class="opt-icon"></div>Sim, meu plano permite solicitar reembolso</label>
+          <label class="opt"><input type="radio" name="q16" value="Não, meu plano não possui reembolso"><div class="opt-icon"></div>Não, meu plano não possui essa modalidade</label>
+          <label class="opt"><input type="radio" name="q16" value="Não sei se meu plano tem reembolso"><div class="opt-icon"></div>Não sei se meu plano oferece reembolso</label>
+        </div>
+        <div class="q-note" style="margin-top:8px;">ℹ️ Se respondeu "Não" ou "Não sei", pule para a pergunta 18.</div>
+        <div class="field-error" id="err-q16">Por favor, selecione uma opção.</div>
+      </div>
+      <!-- Q17 — NOVA: experiência com reembolso -->
+      <div class="question" id="q17-wrap">
+        <div class="q-label"><span class="q-num">17</span><span>Como você avalia sua experiência ao solicitar reembolso de despesas médicas?</span></div>
+        <div class="options" data-name="q17" data-type="radio">
+          <label class="opt"><input type="radio" name="q17" value="Nunca precisei solicitar reembolso"><div class="opt-icon"></div>Nunca precisei solicitar reembolso</label>
+          <label class="opt"><input type="radio" name="q17" value="Já solicitei e foi simples e rápido"><div class="opt-icon"></div>Já solicitei e o processo foi simples e rápido</label>
+          <label class="opt"><input type="radio" name="q17" value="Já solicitei e foi burocrático e demorado"><div class="opt-icon"></div>Já solicitei e o processo foi burocrático e demorado</label>
+          <label class="opt"><input type="radio" name="q17" value="Reembolso foi negado ou parcial"><div class="opt-icon"></div>Já solicitei e o reembolso foi negado ou pago parcialmente</label>
+          <label class="opt"><input type="radio" name="q17" value="Desisti por achar muito complicado"><div class="opt-icon"></div>Deixei de solicitar por achar o processo muito complicado</label>
+        </div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(3)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(3)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 4 — AUTORIZAÇÃO ═══ -->
+  <div class="block" id="block-4">
+    <div class="block-header"><div class="block-num">4</div><div><div class="block-title">Autorização e Processos Administrativos</div><div class="block-subtitle">Barreiras burocráticas para obter atendimento</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">18</span><span>Você já precisou solicitar autorização prévia para um procedimento, exame ou cirurgia?<span class="req">*</span></span></div>
+        <div class="options" data-name="q18" data-type="radio">
+          <label class="opt"><input type="radio" name="q18" value="Sim, já precisei"><div class="opt-icon"></div>Sim, já precisei</label>
+          <label class="opt"><input type="radio" name="q18" value="Não, nunca precisei"><div class="opt-icon"></div>Não, nunca precisei</label>
+          <label class="opt"><input type="radio" name="q18" value="Não sei como funciona"><div class="opt-icon"></div>Não sei como funciona esse processo</label>
+        </div>
+        <div class="field-error" id="err-q18">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">19</span><span>Como você avalia o processo de autorização prévia da sua operadora?</span></div>
+        <div class="q-note">Se não se aplica, pule para a próxima pergunta.</div>
+        <div class="options" data-name="q19" data-type="radio">
+          <label class="opt"><input type="radio" name="q19" value="Muito simples e rápido"><div class="opt-icon"></div>Muito simples e rápido</label>
+          <label class="opt"><input type="radio" name="q19" value="Simples, mas demorado"><div class="opt-icon"></div>Simples, mas um pouco demorado</label>
+          <label class="opt"><input type="radio" name="q19" value="Burocrático e difícil"><div class="opt-icon"></div>Burocrático e difícil de entender</label>
+          <label class="opt"><input type="radio" name="q19" value="Muito burocrático e frustrante"><div class="opt-icon"></div>Muito burocrático e frustrante</label>
+          <label class="opt"><input type="radio" name="q19" value="Já tive autorização negada injustificadamente"><div class="opt-icon"></div>Já tive autorização negada de forma injustificada</label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">20</span><span>Você já deixou de realizar um procedimento por dificuldades com a autorização?<span class="req">*</span></span></div>
+        <div class="options" data-name="q20" data-type="radio">
+          <label class="opt"><input type="radio" name="q20" value="Sim"><div class="opt-icon"></div>Sim</label>
+          <label class="opt"><input type="radio" name="q20" value="Não"><div class="opt-icon"></div>Não</label>
+        </div>
+        <div class="field-error" id="err-q20">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">21</span><span>Como avalia o tempo de resposta da operadora a solicitações e reclamações?<span class="req">*</span></span></div>
+        <div class="options" data-name="q21" data-type="radio">
+          <label class="opt"><input type="radio" name="q21" value="Muito ágil (menos de 24h)"><div class="opt-icon"></div>Muito ágil — respostas em menos de 24h</label>
+          <label class="opt"><input type="radio" name="q21" value="Aceitável (1 a 3 dias úteis)"><div class="opt-icon"></div>Aceitável — de 1 a 3 dias úteis</label>
+          <label class="opt"><input type="radio" name="q21" value="Lento (mais de 3 dias úteis)"><div class="opt-icon"></div>Lento — mais de 3 dias úteis</label>
+          <label class="opt"><input type="radio" name="q21" value="Muito lento, sem resolução"><div class="opt-icon"></div>Muito lento e frequentemente sem resolução</label>
+          <label class="opt"><input type="radio" name="q21" value="Nunca precisei acionar"><div class="opt-icon"></div>Nunca precisei acionar a operadora</label>
+        </div>
+        <div class="field-error" id="err-q21">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(4)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(4)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 5 — COMPREENSÃO ═══ -->
+  <div class="block" id="block-5">
+    <div class="block-header"><div class="block-num">5</div><div><div class="block-title">Compreensão da Cobertura e Letramento</div><div class="block-subtitle">"Eu sei o que meu plano cobre?"</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">22</span><span>Você sabe quais serviços e procedimentos são cobertos pelo seu plano?<span class="req">*</span></span></div>
+        <div class="options" data-name="q22" data-type="radio">
+          <label class="opt"><input type="radio" name="q22" value="Sim, entendo bem"><div class="opt-icon"></div>Sim, entendo bem minha cobertura</label>
+          <label class="opt"><input type="radio" name="q22" value="Entendo parcialmente"><div class="opt-icon"></div>Entendo parcialmente — tenho dúvidas em alguns pontos</label>
+          <label class="opt"><input type="radio" name="q22" value="Tenho muita dificuldade"><div class="opt-icon"></div>Tenho muita dificuldade para entender o que é coberto</label>
+          <label class="opt"><input type="radio" name="q22" value="Não sei o que está coberto"><div class="opt-icon"></div>Não sei bem o que está coberto</label>
+        </div>
+        <div class="field-error" id="err-q22">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">23</span><span>Você já foi surpreendido com a cobrança de algo que acreditava estar coberto?<span class="req">*</span></span></div>
+        <div class="options" data-name="q23" data-type="radio">
+          <label class="opt"><input type="radio" name="q23" value="Sim, isso já aconteceu"><div class="opt-icon"></div>Sim, isso já aconteceu</label>
+          <label class="opt"><input type="radio" name="q23" value="Não, nunca aconteceu"><div class="opt-icon"></div>Não, nunca aconteceu</label>
+          <label class="opt"><input type="radio" name="q23" value="Não me lembro"><div class="opt-icon"></div>Não me lembro</label>
+        </div>
+        <div class="field-error" id="err-q23">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">24</span><span>Você compreende o que é coparticipação?<span class="req">*</span></span></div>
+        <div class="options" data-name="q24" data-type="radio">
+          <label class="opt"><input type="radio" name="q24" value="Sim, entendo completamente"><div class="opt-icon"></div>Sim, entendo completamente</label>
+          <label class="opt"><input type="radio" name="q24" value="Entendo parcialmente"><div class="opt-icon"></div>Entendo parcialmente</label>
+          <label class="opt"><input type="radio" name="q24" value="Nunca ouvi falar / não sei"><div class="opt-icon"></div>Nunca ouvi falar / não sei o que é</label>
+        </div>
+        <div class="field-error" id="err-q24">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">25</span><span>Avalie sua facilidade com cada aspecto do plano:<span class="req">*</span></span></div>
+        <div class="q-note">1 = Muito fácil &nbsp;|&nbsp; 2 = Fácil &nbsp;|&nbsp; 3 = Neutro &nbsp;|&nbsp; 4 = Difícil &nbsp;|&nbsp; 5 = Muito difícil &nbsp;|&nbsp; N/A = Não se aplica</div>
+        <div class="likert-wrap">
+          <table class="likert" id="likert25">
+            <thead>
+              <tr>
+                <th style="width:38%">Aspecto</th>
+                <th>Muito fácil</th><th>Fácil</th><th>Neutro</th><th>Difícil</th><th>Muito difícil</th>
+                <th class="col-na">Não se aplica</th>
+              </tr>
+            </thead>
+            <tbody id="likert25-body"></tbody>
+          </table>
+        </div>
+        <div class="field-error" id="err-q25">Por favor, avalie todos os itens.</div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(5)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(5)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 6 — SATISFAÇÃO ═══ -->
+  <div class="block" id="block-6">
+    <div class="block-header"><div class="block-num">6</div><div><div class="block-title">Satisfação Geral e Experiência</div><div class="block-subtitle">Avaliação da jornada como beneficiário</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">26</span><span>Como você avalia sua satisfação geral com seu plano de saúde?<span class="req">*</span></span></div>
+        <div class="options" data-name="q26" data-type="radio">
+          <label class="opt"><input type="radio" name="q26" value="Muito satisfeito"><div class="opt-icon"></div>Muito satisfeito</label>
+          <label class="opt"><input type="radio" name="q26" value="Satisfeito"><div class="opt-icon"></div>Satisfeito</label>
+          <label class="opt"><input type="radio" name="q26" value="Neutro / indiferente"><div class="opt-icon"></div>Neutro / indiferente</label>
+          <label class="opt"><input type="radio" name="q26" value="Insatisfeito"><div class="opt-icon"></div>Insatisfeito</label>
+          <label class="opt"><input type="radio" name="q26" value="Muito insatisfeito"><div class="opt-icon"></div>Muito insatisfeito</label>
+        </div>
+        <div class="field-error" id="err-q26">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">27</span><span>Avalie a frequência com que enfrenta estas barreiras:<span class="req">*</span></span></div>
+        <div class="q-note">1 = Nunca &nbsp;|&nbsp; 2 = Raramente &nbsp;|&nbsp; 3 = Às vezes &nbsp;|&nbsp; 4 = Frequentemente &nbsp;|&nbsp; 5 = Sempre &nbsp;|&nbsp; N/A = Não se aplica</div>
+        <div class="likert-wrap">
+          <table class="likert" id="likert27">
+            <thead>
+              <tr>
+                <th style="width:38%">Barreira</th>
+                <th>Nunca</th><th>Raramente</th><th>Às vezes</th><th>Frequentemente</th><th>Sempre</th>
+                <th class="col-na">Não se aplica</th>
+              </tr>
+            </thead>
+            <tbody id="likert27-body"></tbody>
+          </table>
+        </div>
+        <div class="field-error" id="err-q27">Por favor, avalie todos os itens.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">28</span><span>Na sua opinião, qual é a principal barreira que você enfrenta ao usar seu plano?</span></div>
+        <textarea id="q28" placeholder="Descreva com suas próprias palavras…" rows="4"></textarea>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(6)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(6)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 7 — IA ═══ -->
+  <div class="block" id="block-7">
+    <div class="block-header"><div class="block-num">7</div><div><div class="block-title">Receptividade à Inteligência Artificial</div><div class="block-subtitle">Potencial da IA como facilitadora na navegação de benefícios</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">29</span><span>Você já usou assistente virtual ou chatbot para tirar dúvidas sobre seu plano?<span class="req">*</span></span></div>
+        <div class="options" data-name="q29" data-type="radio">
+          <label class="opt"><input type="radio" name="q29" value="Sim, experiência boa"><div class="opt-icon"></div>Sim, e a experiência foi boa</label>
+          <label class="opt"><input type="radio" name="q29" value="Sim, experiência ruim"><div class="opt-icon"></div>Sim, mas a experiência foi ruim / não resolveu</label>
+          <label class="opt"><input type="radio" name="q29" value="Não, nunca usei"><div class="opt-icon"></div>Não, nunca usei</label>
+          <label class="opt"><input type="radio" name="q29" value="Não sabia que existia"><div class="opt-icon"></div>Não sabia que essa opção existia</label>
+        </div>
+        <div class="field-error" id="err-q29">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">30</span><span>Se existisse um assistente de IA para te guiar no uso do plano, você usaria?<span class="req">*</span></span></div>
+        <div class="options" data-name="q30" data-type="radio">
+          <label class="opt"><input type="radio" name="q30" value="Com certeza usaria"><div class="opt-icon"></div>Com certeza usaria</label>
+          <label class="opt"><input type="radio" name="q30" value="Provavelmente usaria"><div class="opt-icon"></div>Provavelmente usaria</label>
+          <label class="opt"><input type="radio" name="q30" value="Talvez usaria"><div class="opt-icon"></div>Talvez usaria</label>
+          <label class="opt"><input type="radio" name="q30" value="Provavelmente não usaria"><div class="opt-icon"></div>Provavelmente não usaria</label>
+          <label class="opt"><input type="radio" name="q30" value="Certamente não usaria"><div class="opt-icon"></div>Certamente não usaria</label>
+        </div>
+        <div class="field-error" id="err-q30">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">31</span><span>Quai </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">31</span><span>Quais funcionalidades seriam mais úteis num assistente de IA? (marque até 3)</span></div>
+        <div class="q-note">Selecione até 3 opções.</div>
+        <div class="options" data-name="q31" data-type="checkbox" data-max="3">
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Explicar cobertura em linguagem simples"><div class="opt-icon"></div>Explicar o que meu plano cobre em linguagem simples</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Localizar credenciados próximos"><div class="opt-icon"></div>Localizar médicos e clínicas credenciadas perto de mim</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Guiar em solicitações de autorização"><div class="opt-icon"></div>Guiar passo a passo em solicitações de autorização</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Alertar sobre reajustes e mudanças"><div class="opt-icon"></div>Alertar sobre reajustes e mudanças na cobertura</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Comparar planos"><div class="opt-icon"></div>Ajudar a comparar planos antes de contratar</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Esclarecer valores da coparticipação"><div class="opt-icon"></div>Esclarecer valores da coparticipação</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Esclarecer valores e processos de reembolso"><div class="opt-icon"></div>Esclarecer valores e processos de reembolso (quando contratado)</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q31" value="Indicar tipo de médico para meu sintoma"><div class="opt-icon"></div>Indicar qual tipo de médico consultar para meu sintoma</label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">32</span><span>Qual é o seu principal receio em relação ao uso de IA para saúde?<span class="req">*</span></span></div>
+        <div class="options" data-name="q32" data-type="radio">
+          <label class="opt"><input type="radio" name="q32" value="Privacidade e segurança dos dados"><div class="opt-icon"></div>Privacidade e segurança dos meus dados</label>
+          <label class="opt"><input type="radio" name="q32" value="Medo de informações erradas"><div class="opt-icon"></div>Medo de receber informações erradas</label>
+          <label class="opt"><input type="radio" name="q32" value="Prefiro falar com pessoas"><div class="opt-icon"></div>Prefiro falar com uma pessoa de verdade</label>
+          <label class="opt"><input type="radio" name="q32" value="Dificuldade com tecnologia"><div class="opt-icon"></div>Dificuldade de uso da tecnologia</label>
+          <label class="opt"><input type="radio" name="q32" value="Não tenho receios"><div class="opt-icon"></div>Não tenho receios</label>
+        </div>
+        <div class="field-error" id="err-q32">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(7)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(7)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 8 — SUS ═══ -->
+  <div class="block" id="block-8">
+    <div class="block-header"><div class="block-num">8</div><div><div class="block-title">Usuários Exclusivos do SUS</div><div class="block-subtitle">Bloco específico para quem não possui plano de saúde privado</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">33</span><span>Qual o principal motivo de não possuir plano privado?<span class="req">*</span></span></div>
+        <div class="options" data-name="q33" data-type="radio">
+          <label class="opt"><input type="radio" name="q33" value="Custo — mensalidade cara"><div class="opt-icon"></div>Custo — a mensalidade é muito cara para minha renda</label>
+          <label class="opt"><input type="radio" name="q33" value="Não considero necessário"><div class="opt-icon"></div>Não considero necessário — o SUS atende minhas necessidades</label>
+          <label class="opt"><input type="radio" name="q33" value="Nunca pesquisei"><div class="opt-icon"></div>Nunca pesquisei / não sei como contratar</label>
+          <label class="opt"><input type="radio" name="q33" value="Já tive plano, cancelei por insatisfação"><div class="opt-icon"></div>Já tive plano, mas cancelei por insatisfação</label>
+          <label class="opt"><input type="radio" name="q33" value="Outra razão"><div class="opt-icon"></div>Outra razão</label>
+        </div>
+        <input type="text" id="q33-other" placeholder="Qual a razão?" style="margin-top:8px;display:none;">
+        <div class="field-error" id="err-q33">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">34</span><span>Quais são suas maiores dificuldades ao usar o SUS? (marque todas que se aplicam)</span></div>
+        <div class="options" data-name="q34" data-type="checkbox">
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Tempo de espera longo"><div class="opt-icon"></div>Tempo de espera muito longo para consultas</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Dificuldade de acesso a especialistas"><div class="opt-icon"></div>Dificuldade de acesso a especialistas</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Falta de medicamentos"><div class="opt-icon"></div>Falta de medicamentos</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Qualidade do atendimento"><div class="opt-icon"></div>Qualidade do atendimento</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Distância das unidades"><div class="opt-icon"></div>Distância das unidades de saúde</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Falta de transparência"><div class="opt-icon"></div>Falta de transparência sobre os processos</label>
+          <label class="opt checkbox-opt"><input type="checkbox" name="q34" value="Não tenho dificuldades"><div class="opt-icon"></div>Não tenho dificuldades</label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">35</span><span>Consideraria contratar um plano com melhor custo-benefício?<span class="req">*</span></span></div>
+        <div class="options" data-name="q35" data-type="radio">
+          <label class="opt"><input type="radio" name="q35" value="Sim, com certeza"><div class="opt-icon"></div>Sim, com certeza</label>
+          <label class="opt"><input type="radio" name="q35" value="Provavelmente sim"><div class="opt-icon"></div>Provavelmente sim</label>
+          <label class="opt"><input type="radio" name="q35" value="Talvez"><div class="opt-icon"></div>Talvez</label>
+          <label class="opt"><input type="radio" name="q35" value="Provavelmente não"><div class="opt-icon"></div>Provavelmente não</label>
+          <label class="opt"><input type="radio" name="q35" value="Não, prefiro o SUS"><div class="opt-icon"></div>Não, prefiro o SUS</label>
+        </div>
+        <div class="field-error" id="err-q35">Por favor, selecione uma opção.</div>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" onclick="prevBlock(8)">← Anterior</button><button class="btn btn-primary" onclick="nextBlock(8)">Próximo →</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCO 9 — COMENTÁRIOS ═══ -->
+  <div class="block" id="block-9">
+    <div class="block-header"><div class="block-num">9</div><div><div class="block-title">Comentários e Sugestões</div><div class="block-subtitle">Espaço aberto para sua opinião</div></div></div>
+    <div class="block-body">
+      <div class="question">
+        <div class="q-label"><span class="q-num">36</span><span>O que as operadoras poderiam fazer para melhorar a experiência dos usuários?</span></div>
+        <textarea id="q36" placeholder="Sua opinião é muito valiosa para esta pesquisa…" rows="5"></textarea>
+      </div>
+      <div class="question">
+        <div class="q-label"><span class="q-num">37</span><span>Há algo mais sobre sua experiência que você gostaria de compartilhar?</span></div>
+        <textarea id="q37" placeholder="Espaço livre para qualquer observação adicional…" rows="4"></textarea>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevBlock(9)">← Anterior</button>
+        <button class="btn btn-submit" onclick="submitForm()">✓ Enviar respostas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎉</div>
+    <h2>Obrigado pela participação!</h2>
+    <p>Suas respostas foram registradas com sucesso e contribuirão para a pesquisa sobre barreiras de acesso na saúde suplementar.</p>
+    <p style="margin-top:8px;font-size:13px;color:#aaa;">Em caso de dúvidas: jorge.klei1@gmail.com</p>
+  </div>
+
+</div><!-- /page-wrap -->
+
 <script>
+// ── CONFIG ─────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKk80yA5IUFpkZVqNMxX0DnbPmqxujkKMrqYm7e1r60ueOwYKGc0-07OVExE-9s-KwaQ/exec";
+
+// ─ STATE ──────────────────────────────────────────────────────────
 let currentBlock = 1;
 let isSUSOnly = false;
-function getBlockSequence() { return isSUSOnly ? [1,2,8,9] : [1,2,3,4,5,6,7,9]; }
-document.addEventListener('DOMContentLoaded', () => { initOptions(); updateProgress(); });
-function initOptions() { document.querySelectorAll('.options').forEach(wrap => { wrap.querySelectorAll('.opt').forEach(opt => { const input = opt.querySelector('input'); if (!input) return; input.addEventListener('change', () => { if (input.type === 'radio') { wrap.querySelectorAll('.opt').forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); } else { opt.classList.toggle('selected', input.checked); } }); }); }); }
-function updateProgress() { const seq = getBlockSequence(); const idx = seq.indexOf(currentBlock); const pct = idx < 0 ? 100 : Math.round((idx / seq.length) * 100); document.getElementById('progressFill').style.width = pct + '%'; document.getElementById('progressPct').textContent = pct + '%'; document.getElementById('progressLabel').textContent = idx < 0 ? 'Concluído' : 'Bloco ' + (idx+1) + ' de ' + seq.length; }
-function nextBlock(from) { const seq = getBlockSequence(); const idx = seq.indexOf(from); if (idx < seq.length - 1) showBlock(seq[idx + 1]); }
-function prevBlock(from) { const seq = getBlockSequence(); const idx = seq.indexOf(from); if (idx > 0) showBlock(seq[idx - 1]); }
-function showBlock(num) { document.querySelectorAll('.block').forEach(b => b.classList.remove('active')); document.getElementById('block-' + num).classList.add('active'); currentBlock = num; updateProgress(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-async function submitForm() { const overlay = document.getElementById('loadingOverlay'); overlay.classList.add('active'); try { await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({timestamp: new Date().toISOString()}) }); overlay.classList.remove('active'); document.querySelectorAll('.block').forEach(b => b.classList.remove('active')); document.getElementById('successScreen').classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(err) { overlay.classList.remove('active'); alert('Erro ao enviar. Tente novamente.'); } }
+
+function getBlockSequence() {
+  return isSUSOnly ? [1,2,8,9] : [1,2,3,4,5,6,7,9];
+}
+
+const likert25Items = [
+  "Entender o contrato / cartilha do plano",
+  "Saber o que está coberto antes de usar",
+  "Encontrar informações no app / site da operadora",
+  "Saber como e para onde acionar o plano",
+];
+const likert27Items = [
+  "Demora para conseguir consulta com especialista",
+  "Dificuldade para agendar exames",
+  "Negativa de cobertura para procedimento prescrito",
+  "Informações contraditórias entre atendentes",
+  "Rede desatualizada (médico/clínica sem atendimento pelo plano)",
+  "Dificuldade para entender os valores de coparticipação",
+  "Longa espera no atendimento telefônico",
+  "Dificuldade de uso do app / portal da operadora",
+  "Dificuldades no processo de solicitação de autorização",
+];
+
+function buildLikert(bodyId, items, qKey, hasNA) {
+  const tbody = document.getElementById(bodyId);
+  items.forEach((item, i) => {
+    const tr = document.createElement('tr');
+    let cells = `<td>${item}</td>`;
+    for (let v = 1; v <= 5; v++) {
+      cells += `<td><div class="likert-radio" data-q="${qKey}" data-row="${i}" data-val="${v}" onclick="selectLikert(this)"></div></td>`;
+    }
+    if (hasNA) {
+      cells += `<td class="cell-na"><div class="likert-radio na-radio" data-q="${qKey}" data-row="${i}" data-val="NA" onclick="selectLikert(this)"></div></td>`;
+    }
+    tr.innerHTML = cells;
+    tbody.appendChild(tr);
+  });
+}
+
+function selectLikert(el) {
+  const q = el.dataset.q, row = el.dataset.row;
+  document.querySelectorAll(`.likert-radio[data-q="${q}"][data-row="${row}"]`)
+    .forEach(r => r.classList.remove('checked'));
+  el.classList.add('checked');
+}
+
+function getLikertValues(qKey, count) {
+  const vals = [];
+  for (let i = 0; i < count; i++) {
+    const checked = document.querySelector(`.likert-radio[data-q="${qKey}"][data-row="${i}"].checked`);
+    vals.push(checked ? checked.dataset.val : '');
+  }
+  return vals;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildLikert('likert25-body', likert25Items, 'l25', true);
+  buildLikert('likert27-body', likert27Items, 'l27', true);
+  initOptions();
+  updateProgress();
+  document.querySelectorAll('input[name="q8"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('q8-other').style.display = r.value === 'Outra operadora' ? 'block' : 'none';
+    });
+  });
+  document.querySelectorAll('input[name="q16"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const showQ17 = r.value === 'Sim, meu plano permite reembolso';
+      document.getElementById('q17-wrap').style.display = showQ17 ? 'block' : 'none';
+    });
+  });
+  document.querySelectorAll('input[name="q33"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('q33-other').style.display = r.value === 'Outra razão' ? 'block' : 'none';
+    });
+  });
+  document.querySelectorAll('input[name="q6"]').forEach(r => {
+    r.addEventListener('change', () => {
+      isSUSOnly = r.value === 'Não — utilizo exclusivamente o SUS';
+    });
+  });
+  document.querySelectorAll('[data-max]').forEach(wrap => {
+    const max = parseInt(wrap.dataset.max);
+    wrap.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (wrap.querySelectorAll('input:checked').length > max) cb.checked = false;
+      });
+    });
+  });
+});
+
+function initOptions() {
+  document.querySelectorAll('.options').forEach(wrap => {
+    wrap.querySelectorAll('.opt').forEach(opt => {
+      const input = opt.querySelector('input');
+      if (!input) return;
+      input.addEventListener('change', () => {
+        if (input.type === 'radio') {
+          wrap.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        } else {
+          opt.classList.toggle('selected', input.checked);
+        }
+      });
+    });
+  });
+}
+
+function updateProgress() {
+  const seq = getBlockSequence();
+  const idx = seq.indexOf(currentBlock);
+  const pct = idx < 0 ? 100 : Math.round((idx / seq.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    idx < 0 ? 'Concluído' : `Bloco ${idx + 1} de ${seq.length}`;
+}
+
+function nextBlock(from) {
+  if (!validateBlock(from)) return;
+  const seq = getBlockSequence();
+  const idx = seq.indexOf(from);
+  if (idx < seq.length - 1) showBlock(seq[idx + 1]);
+}
+function prevBlock(from) {
+  const seq = getBlockSequence();
+  const idx = seq.indexOf(from);
+  if (idx > 0) showBlock(seq[idx - 1]);
+}
+function showBlock(num) {
+  document.querySelectorAll('.block').forEach(b => b.classList.remove('active'));
+  document.getElementById('block-' + num).classList.add('active');
+  currentBlock = num;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validateBlock(n) {
+  let ok = true;
+  const rules = {
+    1: [{t:'radio',n:'q1'},{t:'radio',n:'q2'},{t:'radio',n:'q3'},{t:'text',id:'q4'},{t:'radio',n:'q5'}],
+    2: [{t:'radio',n:'q6'},...(!isSUSOnly?[{t:'radio',n:'q7'},{t:'radio',n:'q8'},{t:'radio',n:'q9'},{t:'radio',n:'q10'}]:[])],
+    3: [{t:'radio',n:'q11'},{t:'radio',n:'q12'},{t:'radio',n:'q13'},{t:'radio',n:'q14'},{t:'radio',n:'q16'}],
+    4: [{t:'radio',n:'q18'},{t:'radio',n:'q20'},{t:'radio',n:'q21'}],
+    5: [{t:'radio',n:'q22'},{t:'radio',n:'q23'},{t:'radio',n:'q24'},{t:'likert',key:'l25',count:4,err:'err-q25'}],
+    6: [{t:'radio',n:'q26'},{t:'likert',key:'l27',count:9,err:'err-q27'}],
+    7: [{t:'radio',n:'q29'},{t:'radio',n:'q30'},{t:'radio',n:'q32'}],
+    8: [{t:'radio',n:'q33'},{t:'radio',n:'q35'}],
+    9: [],
+  };
+  (rules[n] || []).forEach(rule => {
+    if (rule.t === 'radio') {
+      const checked = document.querySelector(`input[name="${rule.n}"]:checked`);
+      const err = document.getElementById('err-' + rule.n);
+      if (!checked) { if(err) err.classList.add('active'); ok = false; }
+      else { if(err) err.classList.remove('active'); }
+    } else if (rule.t === 'text') {
+      const el = document.getElementById(rule.id);
+      const err = document.getElementById('err-' + rule.id);
+      if (!el.value.trim()) { if(err) err.classList.add('active'); ok = false; }
+      else { if(err) err.classList.remove('active'); }
+    } else if (rule.t === 'likert') {
+      const vals = getLikertValues(rule.key, rule.count);
+      const err = document.getElementById(rule.err);
+      if (vals.some(v => v === '')) { if(err) err.classList.add('active'); ok = false; }
+      else { if(err) err.classList.remove('active'); }
+    }
+  });
+  return ok;
+}
+
+function collectData() {
+  const d = {};
+  ['q1','q2','q3','q5','q6','q7','q8','q9','q10',
+   'q11','q12','q13','q14','q16','q17','q18','q19','q20','q21',
+   'q22','q23','q24','q26','q29','q30','q32','q33','q35'].forEach(n => {
+    const c = document.querySelector(`input[name="${n}"]:checked`);
+    d[n] = c ? c.value : '';
+  });
+  ['q15','q31','q34'].forEach(n => {
+    d[n] = Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value).join('; ');
+  });
+  ['q4','q28','q36','q37'].forEach(id => {
+    const el = document.getElementById(id);
+    d[id] = el ? el.value.trim() : '';
+  });
+  d['q8_outro'] = document.getElementById('q8-other').value.trim();
+  d['q33_outro'] = document.getElementById('q33-other').value.trim();
+  const l25 = getLikertValues('l25', 4);
+  likert25Items.forEach((item, i) => { d[`l25_${i+1}`] = l25[i]; });
+  const l27 = getLikertValues('l27', 9);
+  likert27Items.forEach((item, i) => { d[`l27_${i+1}`] = l27[i]; });
+  d['timestamp'] = new Date().toISOString();
+  return d;
+}
+
+async function submitForm() {
+  if (!validateBlock(9)) return;
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.classList.add('active');
+  const data = collectData();
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    overlay.classList.remove('active');
+    document.querySelectorAll('.block').forEach(b => b.classList.remove('active'));
+    document.getElementById('noticeBox').style.display = 'none';
+    document.querySelector('.progress-bar-wrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch(err) {
+    overlay.classList.remove('active');
+    alert('Ocorreu um erro ao enviar. Por favor, tente novamente.');
+    console.error(err);
+  }
+}
 </script>
 </body>
 </html>
