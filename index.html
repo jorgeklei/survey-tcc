@@ -747,9 +747,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // q6 — detectar SUS only
   document.querySelectorAll('input[name="q6"]').forEach(r => {
     r.addEventListener('change', () => {
-      isSUSOnly = r.value === 'Não — utilizo exclusivamente o SUS';
       hasPlano = r.value === 'Sim, possuo plano privado' ||
                  r.value === 'Possuo plano e também uso o SUS';
+      isSUSOnly = !hasPlano; // sem plano: SUS exclusivo OU serviços particulares
       // Hide Q7-Q10 for anyone without a private plan
       ['q7','q8','q9','q10'].forEach(q => {
         const wrap = document.querySelector(`.options[data-name="${q}"]`)?.closest('.question');
