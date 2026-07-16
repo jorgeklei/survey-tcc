@@ -657,6 +657,7 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKk80yA5IUFpkZ
 // ── STATE ──────────────────────────────────────────────────────────
 let currentBlock = 1;
 let isSUSOnly = false;
+let hasPlano = false; // true only when respondent has a private plan
 
 function getBlockSequence() {
   return isSUSOnly ? [1,2,8,9] : [1,2,3,4,5,6,7,9];
@@ -747,6 +748,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[name="q6"]').forEach(r => {
     r.addEventListener('change', () => {
       isSUSOnly = r.value === 'Não — utilizo exclusivamente o SUS';
+      hasPlano = r.value === 'Sim, possuo plano privado' ||
+                 r.value === 'Possuo plano, mas também uso o SUS com frequência';
+      // Hide Q7-Q10 for anyone without a private plan
+      ['q7','q8','q9','q10'].forEach(q => {
+        const wrap = document.querySelector(`.options[data-name="${q}"]`)?.closest('.question');
+        if (wrap) wrap.style.display = hasPlano ? '' : 'none';
+      });
     });
   });
 
@@ -815,7 +823,7 @@ function validateBlock(n) {
   let ok = true;
   const rules = {
     1: [{t:'radio',n:'q1'},{t:'radio',n:'q2'},{t:'radio',n:'q3'},{t:'text',id:'q4'},{t:'radio',n:'q5'}],
-    2: [{t:'radio',n:'q6'},...(!isSUSOnly?[{t:'radio',n:'q7'},{t:'radio',n:'q8'},{t:'radio',n:'q9'},{t:'radio',n:'q10'}]:[])],
+    2: [{t:'radio',n:'q6'},...(hasPlano?[{t:'radio',n:'q7'},{t:'radio',n:'q8'},{t:'radio',n:'q9'},{t:'radio',n:'q10'}]:[])],
     3: [{t:'radio',n:'q11'},{t:'radio',n:'q12'},{t:'radio',n:'q13'},{t:'radio',n:'q14'},{t:'radio',n:'q16'}],
     4: [{t:'radio',n:'q18'},{t:'radio',n:'q20'},{t:'radio',n:'q21'}],
     5: [{t:'radio',n:'q22'},{t:'radio',n:'q23'},{t:'radio',n:'q24'},{t:'likert',key:'l25',count:4,err:'err-q25'}],
